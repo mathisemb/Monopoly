@@ -11,10 +11,6 @@ public class CaseCaisseCommunaute extends Case {
 		super(numero, nom);
 	}
 
-	@Override
-	public String getTypeCase() {
-		return "caisse communaute";
-	}
 
 	@Override
 	public void action() {

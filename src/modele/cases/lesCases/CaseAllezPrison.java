@@ -10,10 +10,6 @@ public class CaseAllezPrison extends Case {
 		super(numero, nom);
 	}
 
-	@Override
-	public String getTypeCase() {
-		return "allez en prison";
-	}
 
 	@Override
 	public void action() {

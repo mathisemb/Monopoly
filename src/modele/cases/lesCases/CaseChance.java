@@ -11,10 +11,6 @@ public class CaseChance extends Case {
 		super(numero, nom);
 	}
 
-	@Override
-	public String getTypeCase() {
-		return "chance";
-	}
 
 	@Override
 	public void action() {

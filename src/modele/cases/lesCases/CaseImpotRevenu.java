@@ -15,10 +15,6 @@ public class CaseImpotRevenu extends Case {
 		return somme;
 	}
 
-	@Override
-	public String getTypeCase() {
-		return "import sur le revenu";
-	}
 
 	@Override
 	public void action() {

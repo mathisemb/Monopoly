@@ -9,10 +9,6 @@ public class CaseTaxeLuxe extends Case {
 		super(numero, nom);
 	}
 	
-	@Override
-	public String getTypeCase() {
-		return "taxe de luxe";
-	}
 	
 	@Override
 	public void action() {

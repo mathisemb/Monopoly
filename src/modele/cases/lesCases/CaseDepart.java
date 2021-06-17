@@ -14,10 +14,6 @@ public class CaseDepart extends Case {
 		return somme;
 	}
 
-	@Override
-	public String getTypeCase() {
-		return "case depart";
-	}
 	
 	@Override
 	public void action() {

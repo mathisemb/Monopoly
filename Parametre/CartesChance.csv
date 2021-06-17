@@ -1,16 +1,16 @@
-DEPLACEMENT;Rendez-vous Ã  la Rue de la Paix
-PAYER;Payez pour frais de scolaritÃ©;150
-DEPLACEMENT;Rendez-vous Ã  l'Avenue Henri-Martin. Si vous passez par la case DÃ©part, recevez 200â‚¬;AVENUE HENRI-MARTIN
-DEPLACEMENT;Avancez au Boulevard de la Vilette. Si vous passez par la case DÃ©part, recevez 200â‚¬;BOULEVARD DE LA VILLETTE
-ENCAISSER;Votre immeuble et votre prÃªt rapportent. Vous devez toucher 150â‚¬;150
-DEPLACEMENT;Reculer de trois cases
-PAYER;Amende pour excÃ¨s de vitesse : 15â‚¬;15
-LIBERATION;Vous Ãªtes libÃ©rÃ© de prison. Cette carte peut Ãªtre conservÃ©e jusqu'Ã  ce qu'elle soit utilisÃ©e ou vendue.
-DEPLACEMENT:Allez en prison ! Avancez tout droit en prison. Ne passez pas par la case dÃ©part. Ne recevez pas 200â‚¬;PRISON
-ENCAISSER;Vous avez gagnÃ© le prix de mots croisÃ©s. Recevez 100â‚¬.;100
-IMPOTS;Vous Ãªtes imposÃ© pour les rÃ©parations de voirie Ã  raison de : 40â‚¬ par maison et 115â‚¬ par hotel.
-REPARATIONS;Faites des rÃ©parations dans toutes vos maisons. Versez pour chaque maison 25â‚¬. Versez pour chaque hÃ´tel 100â‚¬
-PAYER;Amende pour ivresse : 20â‚¬;20
-ENCAISSER;La bouque vous verse un dividende de 50â‚¬;50
-DEPLACEMENT;Avancez jusqu'Ã  la case dÃ©part;CASE DEPART
-DEPLACEMENT;Allez Ã  la gare de Lyon. Si vous passez par la case DÃ©part, recevez 200â‚¬;GARE DE LYON
+Rendez-vous à la Rue de la Paix;RUE DE LA PAIX
+Payez pour frais de scolarité;150
+Rendez-vous à l'Avenue Henri-Martin. Si vous passez par la case Départ, recevez 200€;AVENUE HENRI-MARTIN
+Avancez au Boulevard de la Vilette. Si vous passez par la case Départ, recevez 200€;BOULEVARD DE LA VILLETTE
+Votre immeuble et votre prêt rapportent. Vous devez toucher 150€;150
+Reculer de trois cases;
+Amende pour excès de vitesse : 15€;15
+Vous êtes libéré de prison. Cette carte peut être conservée jusqu'à ce qu'elle soit utilisée ou vendue.;
+PRISON;
+Vous avez gagné le prix de mots croisés. Recevez 100€.;100
+Vous êtes imposé pour les réparations de voirie à raison de : 40€ par maison et 115€ par hotel.;
+Faites des réparations dans toutes vos maisons. Versez pour chaque maison 25€. Versez pour chaque hôtel 100€;
+Amende pour ivresse : 20€;20
+La bouque vous verse un dividende de 50€;50
+Avancez jusqu'à la case départ;CASE DEPART
+Allez à la gare de Lyon. Si vous passez par la case Départ, recevez 200€;GARE DE LYON

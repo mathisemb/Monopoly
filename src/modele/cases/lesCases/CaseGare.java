@@ -11,7 +11,6 @@ public class CaseGare extends Propriete {
 		
 	}
 	
-	@Override
 	public String getTypeCase() {
 		return typeCase;
 	}

@@ -2,11 +2,11 @@ package application;
 	
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Optional;
 
 import application.event.EventAchatTerrain;
-import application.event.EventChoixJoueur;
 import application.event.EventGererMaison;
 import application.event.EventJouer;
 import application.event.EventPasser;
@@ -14,9 +14,7 @@ import javafx.application.Application;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
@@ -24,12 +22,10 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
@@ -38,6 +34,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import modele.cases.Propriete;
 import modele.exceptions.MonopolyException;
 import modele.joueur.Joueur;
 import modele.plateau.Plateau;
@@ -71,24 +68,22 @@ public class Monopoly extends Application {
 	 * YL : ListView peut contenir n'importe quel type d'objet. Pour l'instant, ce sont des String
 	 * --> A modifier !!
 	 */
-	private ListView<String> proprietesJoueurCourant;
+	private ListView<Propriete> proprietesJoueurCourant;
 	
 	/**
 	 * YL : la liste des joueurs est reprÃ©sentÃ©e par une liste de noms, ainsi que la liste des pions. 
 	 * --> A modifier !!
 	 */
 	private ArrayList<Joueur>	listeJoueurs = new ArrayList<Joueur>();
-	private ArrayList<Pion>	listePions = new ArrayList<Pion>();
-	private Joueur joueurCourant;
 	
 	private	int	terrainSelectionne = -1;
 	private TextField tfPorteMonnaie;
 
 	private	int		nbDoubles = 0;
 	
-	private	FenetreTerrain fenetreTerrain = new FenetreTerrain();
+	private	FenetreTerrain fenetreTerrain; // = new FenetreTerrain(/*this.getTerrainSelectionne()*/);
 	
-	public ListView<String>  getZoneProprietes() {
+	public ListView<Propriete>  getZoneProprietes() {
 		return proprietesJoueurCourant;
 	}
 
@@ -214,7 +209,7 @@ public class Monopoly extends Application {
 						dialogA.setTitle("Avertissement");
 						dialogA.setHeaderText("Nombre incorrect de joueurs");
 						dialogA.setContentText("Attention : vous devez entrez au minimum 2 joueurs !");
-						Optional<ButtonType> reponse = dialogA.showAndWait();
+						dialogA.showAndWait();
 					}
 					else {
 						// La scène principale
@@ -274,7 +269,7 @@ public class Monopoly extends Application {
 
 		HBox hb = new HBox();
 		hb.getChildren().add(new Label("Porte monnaie : "));
-		tfPorteMonnaie = new TextField("0");
+		tfPorteMonnaie = new TextField(""+this.getJoueurCourant().getArgent());
 		tfPorteMonnaie.setEditable(false);
 		hb.getChildren().add(tfPorteMonnaie);
 		
@@ -284,12 +279,12 @@ public class Monopoly extends Application {
 		panneauDroit.getChildren().add(new Label("Liste des proprietes :"));
 		
 		
-		proprietesJoueurCourant = new ListView<String>();
+		proprietesJoueurCourant = new ListView<Propriete>();
 		proprietesJoueurCourant.setPrefHeight(0);
 
-		proprietesJoueurCourant.getItems().addListener(new ListChangeListener<String>() {
+		proprietesJoueurCourant.getItems().addListener(new ListChangeListener<Propriete>() {
 			@Override
-			public void onChanged(Change<? extends String> arg0) {
+			public void onChanged(Change<? extends Propriete> arg0) {
 		    	proprietesJoueurCourant.setPrefHeight(proprietesJoueurCourant.getItems().size() * 24 + 4); // 24 et 4 sont des nombres magiques...
 			}
 		});
@@ -298,7 +293,6 @@ public class Monopoly extends Application {
 			@Override
 			public void handle(MouseEvent arg0) {
 				terrainSelectionne = proprietesJoueurCourant.getSelectionModel().getSelectedIndex();
-				System.out.println("Item : "+proprietesJoueurCourant.getSelectionModel().getSelectedIndex());	
 			}		
 		});
 		
@@ -357,7 +351,6 @@ public class Monopoly extends Application {
 			
 			ToggleButton bJoueur = new ToggleButton(joueur.toString());
 			bJoueur.setToggleGroup(group);
-			bJoueur.setOnAction(new EventChoixJoueur(this));
 			bJoueur.setUserData(joueur);
 
 
@@ -376,18 +369,17 @@ public class Monopoly extends Application {
 
 	private void initPartie(Stage primaryStage, ListView<Joueur> list) throws MonopolyException, NumberFormatException, IOException {
 		Plateau plateau = Plateau.getInstance();
-		plateau.setLesCases("src/modele/donnees/Terrains.csv");
-		plateau.setLesCartesChance("src/modele/donnees/CartesChance.csv");
-		plateau.setLesCartesCommunaute("src/modele/donnees/CartesCommunaute.csv");
+		plateau.setLesCases("Parametre/Terrains.csv");
+		plateau.setLesCartesChance("Parametre/CartesChance.csv");
+		plateau.setLesCartesCommunaute("Parametre/CartesCommunaute.csv");
 		plateau.setJoueurPresent(list.getItems().get(0));
-		this.setJoueurCourant(list.getItems().get(0));
 		
 		for(Joueur joueur : list.getItems()) {
 			listeJoueurs.add(joueur);
 			plateau.ajouterJoueur(joueur);
 		}
 		
-		uiPlateau = new UIPlateau(/* Parametres ? */);		
+		uiPlateau = new UIPlateau();		
 		
 	}
 	
@@ -439,13 +431,18 @@ public class Monopoly extends Application {
 	}
 
 	public Joueur getJoueurCourant() {
-		return joueurCourant;
+		return Plateau.getInstance().getJoueurPresent(); // pour éviter de renommer toutes les occurence de getJoueurCourant
 	}
 
-	public void setJoueurCourant(Joueur j) {
-		joueurCourant = j;
-		
-	}
 	
+	public void setInfosJoueurCourant() {
+		this.tfPorteMonnaie.setText(""+Plateau.getInstance().getJoueurPresent().getArgent());
+		this.proprietesJoueurCourant.getItems().clear();
+		
+		for(Propriete prop : Plateau.getInstance().getJoueurPresent().getLesProprietes()) {
+			this.proprietesJoueurCourant.getItems().add(prop);
+		}
+	}
 
+	
 }

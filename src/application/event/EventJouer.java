@@ -4,6 +4,7 @@ import application.Monopoly;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import modele.exceptions.MonopolyException;
+import modele.plateau.Plateau;
 
 
 public class EventJouer implements EventHandler<ActionEvent> {
@@ -18,46 +19,49 @@ public class EventJouer implements EventHandler<ActionEvent> {
 	@Override
 	public void handle(ActionEvent event) {
 		
-		
 		String tfDe1 = monopoly.getTfValeurDe1().getText();
 		String tfDe2 = monopoly.getTfValeurDe2().getText();
-		
-		int de1 = Integer.parseInt(tfDe1);
-		int de2 = Integer.parseInt(tfDe2);
-		
-		int nbCases = de1+de2;
-		
-		System.out.println("d1="+de1+"  d2="+de2+ "  nb cases="+nbCases);
-		
-		if (de1==de2) {
-			int nbDbl = monopoly.getNbDoubles();
+		if (tfDe1.trim().isEmpty() || tfDe2.trim().isEmpty())
+			monopoly.DialogAction("Remplissez correctement la valeur des dés", true);
+		else {
+			int de1 = Integer.parseInt(tfDe1);
+			int de2 = Integer.parseInt(tfDe2);
 			
-			nbDbl++;
-			monopoly.setNbDoubles(nbDbl);
-			if (nbDbl==1)
-				monopoly.getMessageFooter().setText("C'est ton premier double !");
-			else if (nbDbl==2)
-				monopoly.getMessageFooter().setText("C'est ton deuxieme double !! Encore un et c'est la taule...");
-			else {
-				monopoly.getMessageFooter().setText("Police, menottes, prison...");
-				try {
-					monopoly.setNbDoubles(0);			
-				} catch (Exception e) {
-					monopoly.DialogAction(e.getMessage(), true);
+			int nbCases = de1+de2;
+			
+			Plateau.getInstance().setLesDes(nbCases);
+			
+			if (de1==de2) {
+				int nbDbl = monopoly.getNbDoubles();
+				
+				nbDbl++;
+				monopoly.setNbDoubles(nbDbl);
+				if (nbDbl==1)
+					monopoly.getMessageFooter().setText("C'est ton premier double !");
+				else if (nbDbl==2)
+					monopoly.getMessageFooter().setText("C'est ton deuxieme double !! Encore un et c'est la taule...");
+				else {
+					monopoly.getMessageFooter().setText("Police, menottes, prison...");
+					try {
+						monopoly.setNbDoubles(0);			
+					} catch (Exception e) {
+						monopoly.DialogAction(e.getMessage(), true);
+					}
 				}
+			} else {
+				monopoly.setNbDoubles(0);
 			}
-		} else {
-			monopoly.setNbDoubles(0);			
+			
+			try {
+				monopoly.getJoueurCourant().seDeplacerDe(nbCases);
+			} catch (MonopolyException e) {
+				monopoly.DialogAction(e.getMessage(), true);
+			}
+			
+			monopoly.setInfosJoueurCourant();
+			
+			monopoly.getUiPlateau().dessiner(monopoly.getGrillePane());
+			
 		}
-		
-		try {
-			monopoly.getJoueurCourant().seDeplacerDe(nbCases);
-		} catch (MonopolyException e) {
-			e.printStackTrace();
-		}
-		
-		monopoly.getUiPlateau().dessiner(monopoly.getGrillePane());
-		
-		
 	}
 }

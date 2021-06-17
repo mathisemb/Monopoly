@@ -11,7 +11,6 @@ public class CaseCompagnie extends Propriete {
 		this.typeCase = typeCase;
 	}
 	
-	@Override
 	public String getTypeCase() {
 		return typeCase;
 	}

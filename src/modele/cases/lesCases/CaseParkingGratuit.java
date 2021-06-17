@@ -21,10 +21,6 @@ public class CaseParkingGratuit extends Case {
 		this.sommePosee = 0;
 	}
 
-	@Override
-	public String getTypeCase() {
-		return "parking gratuit";
-	}
 
 	@Override
 	public void action() {

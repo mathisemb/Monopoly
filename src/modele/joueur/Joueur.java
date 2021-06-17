@@ -111,8 +111,12 @@ public class Joueur {
 	}
 	
 	public void acheterPropriete(Propriete prop) throws MonopolyException {
-		if (prop.getProprietaire() != null)
-			throw new MonopolyException("Erreur : la propriété " + prop.getNom() + " a déjà un propriétaire");
+		if (prop.getProprietaire() != null) {
+			if (prop.getProprietaire().equals(this))
+				throw new MonopolyException("Vous etes deja proprietaire de cette case...");
+			else
+				throw new MonopolyException("Erreur : la propriété " + prop.getNom() + " a déjà un propriétaire (" + prop.getProprietaire().toString() + ")");
+		}
 		argent = argent - prop.getPrixAchat();
 		this.lesProprietes.add(prop);
 		prop.setProprietaire(this);
@@ -176,9 +180,8 @@ public class Joueur {
 
 	@Override
 	public String toString() {
-		return "Joueur [pion=" + pion + "]";
+		return "joueur avec le pion " + pion;
 	}
-	
 	
 
 }

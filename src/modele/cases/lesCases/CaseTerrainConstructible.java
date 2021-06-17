@@ -28,7 +28,6 @@ public class CaseTerrainConstructible extends Propriete {
 		return couleur;
 	}
 
-	@Override
 	public String getTypeCase() {
 		return typeCase;
 	}

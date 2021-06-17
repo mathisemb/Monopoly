@@ -1,16 +1,16 @@
-PAYER;Payez la note du mÃ©decin;50
-ENCAISSER;Erreur de la banque en votre faveur. Recevez 200â‚¬;200
-PAYER;Payez votre Police d'Assurance s'Ã©levant Ã  50â‚¬;50
-CHANCE;Payez une amende de 10â‚¬ ou tirez une carte "CHANCE";10
-ENCAISSER;Vous hÃ©ritez de 100â‚¬;100
-ANNIVERSAIRE;C'est votre anniversaire. Chaque joueur doit vous donner 10â‚¬;10
-ENCAISSER;Recevez votre intÃ©rÃªt sur l'emprunt Ã  7%;25
-ENCAISSER;Les contributions vous remboursent la somme de 20â‚¬;20
-DEPLACEMENT;Avancez jusqu'Ã  la case dÃ©part;CASE DEPART
-ENCAISSER;Recevez votre revenu annuel;100
-ENCAISSER;La vente de votre stock vous rapporte;50
-DEPLACEMENT;Retournez Ã  Belleville;BOULEVARD DE BELLEVILLE
-DEPLACEMENT:Allez en prison ! Avancez tout droit en prison. Ne passez pas par la case dÃ©part. Ne recevez pas 200â‚¬;PRISON
-ENCAISSER;Vous avez gagnÃ© le deuxiÃ¨me prix de beautÃ©. Recevez 10â‚¬;10
-PAYER;Payez l'hÃ´pital 100â‚¬;100
-LIBERATION;Vous Ãªtes libÃ©rÃ© de prison. Cette carte peut Ãªtre conservÃ©e jusqu'Ã  ce qu'elle soit utilisÃ©e ou vendue.
+Payez la note du médecin;50
+Erreur de la banque en votre faveur. Recevez 200€;200
+Payez votre Police d'Assurance s'élevant à 50€;50
+"Payez une amende de 10€ ou tirez une carte ""CHANCE""";10
+Vous héritez de 100€;100
+C'est votre anniversaire. Chaque joueur doit vous donner 10€;10
+Recevez votre intérêt sur l'emprunt Ã  7%;25
+Les contributions vous remboursent la somme de 20€;20
+Avancez jusqu'à la case départ;CASE DEPART
+Recevez votre revenu annuel;100
+La vente de votre stock vous rapporte;50
+Retournez à Belleville;BOULEVARD DE BELLEVILLE
+PRISON;
+Vous avez gagné le deuxième prix de beauté. Recevez 10€;10
+Payez l'hôpital 100€;100
+Vous êtes libéré de prison. Cette carte peut être conservée jusqu'à ce qu'elle soit utilisée ou vendue.;

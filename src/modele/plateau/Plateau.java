@@ -31,7 +31,6 @@ import java.util.Random;
 
 import modele.cartes.Carte;
 
-
 public class Plateau {
 	
 	private int nbJoueurs;

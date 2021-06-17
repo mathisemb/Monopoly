@@ -39,7 +39,7 @@ public class Pion {
 
 	@Override
 	public String toString() {
-		return "Pion [nom=" + nom + "]";
+		return nom;
 	}
 	
 	
