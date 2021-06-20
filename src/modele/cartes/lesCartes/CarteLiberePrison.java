@@ -13,11 +13,13 @@ public class CarteLiberePrison extends Carte{
 	@Override
 	public void actionCarte() {
 		Plateau plateau = Plateau.getInstance();
+		/*
 		try {
 			plateau.getJoueurPresent().seDeplacerDe(plateau.lancerLesDes());
 		} catch (MonopolyException e) {
 			e.printStackTrace();
 		}
+		*/
 	}
 
 }

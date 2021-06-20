@@ -8,7 +8,7 @@ import modele.exceptions.MonopolyException;
 
 public class EventAchatTerrain implements EventHandler<ActionEvent> {
 
-	private	Monopoly	monopoly;
+	private	Monopoly monopoly;
 	
 	public EventAchatTerrain(Monopoly monopoly) {
 		this.monopoly = monopoly;

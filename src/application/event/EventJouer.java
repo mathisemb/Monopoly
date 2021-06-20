@@ -3,6 +3,9 @@ package application.event;
 import application.Monopoly;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import modele.cases.Case;
+import modele.cases.lesCases.CaseCaisseCommunaute;
+import modele.cases.lesCases.CaseChance;
 import modele.exceptions.MonopolyException;
 import modele.plateau.Plateau;
 
@@ -51,15 +54,30 @@ public class EventJouer implements EventHandler<ActionEvent> {
 			} else {
 				monopoly.setNbDoubles(0);
 			}
+
 			
+			
+			// On affiche une boite de dialogue avec le contenu de la carte (avant le déplacement car il y a certaines cartes qui provoquent des déplacement)
+			Case futureCase = Plateau.getInstance().getLaCase(monopoly.getJoueurCourant().getPosition().getNumero()+nbCases);
+			if (futureCase instanceof CaseCaisseCommunaute || futureCase instanceof CaseChance) {
+				try {
+					monopoly.afficheCarte(futureCase);
+				} catch (MonopolyException e1) {
+					e1.printStackTrace();
+				}
+			}		
+
+			// Le joueur se déplace
 			try {
 				monopoly.getJoueurCourant().seDeplacerDe(nbCases);
 			} catch (MonopolyException e) {
 				monopoly.DialogAction(e.getMessage(), true);
 			}
 			
+			// On màj le panneau de droite
 			monopoly.setInfosJoueurCourant();
 			
+			// On met enfin à jour l'ui du plateau
 			monopoly.getUiPlateau().dessiner(monopoly.getGrillePane());
 			
 		}

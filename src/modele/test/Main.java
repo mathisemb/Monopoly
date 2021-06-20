@@ -4,6 +4,8 @@ import java.io.IOException;
 import modele.cartes.Carte;
 import modele.cases.Case;
 import modele.cases.Propriete;
+import modele.cases.lesCases.CaseCompagnie;
+import modele.cases.lesCases.CaseGare;
 import modele.cases.lesCases.CaseParkingGratuit;
 import modele.cases.lesCases.CaseTerrainConstructible;
 import modele.exceptions.MonopolyException;
@@ -18,7 +20,7 @@ public class Main {
 		//-------------------Tests pour la construction du plateau-------------------
 		/*
 		Plateau plateau = Plateau.getInstance();
-		plateau.setLesCases("src/donnees/Terrains.csv");
+		plateau.setLesCases("Parametre/Terrains.csv");
 		
 		if (plateau.getNbJoueurs() != 0)
 			System.err.println("nb joueur != 0");
@@ -35,7 +37,7 @@ public class Main {
 		if (!plateau.getLaCase(20).getNom().equals("PARKING GRATUIT"))
 			System.err.println("case 20 != PARKING GRATUIT");
 
-		if (plateau.getLaCase(20).getTypeCase().equals("parking gratuit")) {
+		if (plateau.getLaCase(20).getClass().equals(CaseParkingGratuit.class)) {
 			CaseParkingGratuit parking = (CaseParkingGratuit)plateau.getLaCase(20);
 			if (parking.getSommePosee() != 0)
 				System.err.println("Somme posée sur le parking gratuit != 0");
@@ -51,19 +53,21 @@ public class Main {
 			System.err.println("case 40 != PRISON");
 		
 		for(Case pos : plateau.getLesCases()) {
-			if (pos.getTypeCase().equals("terrain constructible") || pos.getTypeCase().equals("gare") || pos.getTypeCase().equals("compagnie")) {
+			if (pos.getClass().equals(CaseTerrainConstructible.class) || pos.getClass().equals(CaseGare.class) || pos.getClass().equals(CaseCompagnie.class)) {
 				Propriete prop = (Propriete)pos;
 				if (prop.getProprietaire() != null)
 					System.err.println("le proprietaire de la case : " + prop.getNom() + " n'est pas null et c'est : " + prop.getProprietaire().getPion());
 			}
 		}
+		
+		System.out.println("OK");
 		*/
 		
 		
 		//-------------------Tests pour la construction d’un joueur-------------------
 		/*
 		Plateau plateau = Plateau.getInstance();
-		plateau.setLesCases("src/donnees/Terrains.csv");
+		plateau.setLesCases("Parametre/Terrains.csv");
 		
 		Joueur joueur1 = new Joueur(null);
 		plateau.ajouterJoueur(joueur1);
@@ -85,7 +89,7 @@ public class Main {
 		//-------------------Tests pour le déplacement simple d’un joueur-------------------
 		/*
 		Plateau plateau = Plateau.getInstance();
-		plateau.setLesCases("src/donnees/Terrains.csv");
+		plateau.setLesCases("Parametre/Terrains.csv");
 		Joueur joueur1 = new Joueur(null);
 		plateau.ajouterJoueur(joueur1);
 		
@@ -117,7 +121,7 @@ public class Main {
 		//-------------------Tests pour l’achat d’un terrain-------------------
 		/*
 		Plateau plateau = Plateau.getInstance();
-		plateau.setLesCases("src/donnees/Terrains.csv");
+		plateau.setLesCases("Parametre/Terrains.csv");
 		Joueur joueurA = new Joueur(null);
 		plateau.ajouterJoueur(joueurA);
 		
@@ -148,7 +152,7 @@ public class Main {
 		//-------------------Tests pour le déplacement d’un joueur sur un terrain constructible acheté-------------------
 		/*
 		Plateau plateau = Plateau.getInstance();
-		plateau.setLesCases("src/donnees/Terrains.csv");
+		plateau.setLesCases("Parametre/Terrains.csv");
 		Joueur joueurA = new Joueur(null);
 		plateau.ajouterJoueur(joueurA);
 		Joueur joueurB = new Joueur(null);
@@ -187,7 +191,7 @@ public class Main {
 		//-------------------Tests pour le déplacement d’un joueur sur une gare achetée-------------------
 		/*
 		Plateau plateau = Plateau.getInstance();
-		plateau.setLesCases("src/donnees/Terrains.csv");
+		plateau.setLesCases("Parametre/Terrains.csv");
 		Joueur joueurA = new Joueur(null);
 		plateau.ajouterJoueur(joueurA);
 		Joueur joueurB = new Joueur(null);
@@ -223,7 +227,7 @@ public class Main {
 		//-------------------Tests pour le déplacement d’un joueur sur une compagnie achetée-------------------
 		/*
 		Plateau plateau = Plateau.getInstance();
-		plateau.setLesCases("src/donnees/Terrains.csv");
+		plateau.setLesCases("Parametre/Terrains.csv");
 		Joueur joueurA = new Joueur(null);
 		plateau.ajouterJoueur(joueurA);
 		Joueur joueurB = new Joueur(null);
@@ -264,7 +268,7 @@ public class Main {
 		//-------------------Tests pour l’achat d’une maison-------------------
 		/*
 		Plateau plateau = Plateau.getInstance();
-		plateau.setLesCases("src/donnees/Terrains.csv");
+		plateau.setLesCases("Parametre/Terrains.csv");
 		Joueur joueurA = new Joueur(null);
 		plateau.ajouterJoueur(joueurA);
 		Joueur joueurB = new Joueur(null);
@@ -293,7 +297,7 @@ public class Main {
 		//-------------------Tests pour l’achat d’un hôtel-------------------
 		/*
 		Plateau plateau = Plateau.getInstance();
-		plateau.setLesCases("src/donnees/Terrains.csv");
+		plateau.setLesCases("Parametre/Terrains.csv");
 		Joueur joueurA = new Joueur(null);
 		plateau.ajouterJoueur(joueurA);
 		Joueur joueurB = new Joueur(null);
@@ -331,7 +335,7 @@ public class Main {
 		//-------------------Tests pour le déplacement d’un joueur sur la case « Aller en Prison »-------------------
 		/*
 		Plateau plateau = Plateau.getInstance();
-		plateau.setLesCases("src/donnees/Terrains.csv");
+		plateau.setLesCases("Parametre/Terrains.csv");
 		Joueur joueurA = new Joueur(null);
 		plateau.ajouterJoueur(joueurA);
 		plateau.setJoueurPresent(joueurA);
@@ -352,9 +356,9 @@ public class Main {
 		//-------------------Tests pour les cartes « Chance » ou « Caisse de communauté »-------------------
 		/*
 		Plateau plateau = Plateau.getInstance();
-		plateau.setLesCases("src/donnees/Terrains.csv");
-		plateau.setLesCartesChance("src/donnees/CartesChance.csv");
-		plateau.setLesCartesCommunaute("src/donnees/CartesCommunaute.csv");
+		plateau.setLesCases("Parametre/Terrains.csv");
+		plateau.setLesCartesChance("Parametre/CartesChance.csv");
+		plateau.setLesCartesCommunaute("Parametre/CartesCommunaute.csv");
 		Joueur joueurA = new Joueur(null);
 		plateau.ajouterJoueur(joueurA);
 		plateau.setJoueurPresent(joueurA);
@@ -387,8 +391,7 @@ public class Main {
 			System.err.println(joueurA + " n'est pas au boulevard de Belleville mais à " + joueurA.getPosition());
 		if (!plateau.getLaCarteDuFondCommunaute().equals(carteRetournez))
 			System.err.println("La carte retournez à Belleville n'est pas au fond de la pile des cartes communaute");
+		System.out.println("OK");
 		*/
-
-		
 	}
 }

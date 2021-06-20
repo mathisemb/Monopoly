@@ -9,7 +9,9 @@ import java.util.Optional;
 import application.event.EventAchatTerrain;
 import application.event.EventGererMaison;
 import application.event.EventJouer;
+import application.event.EventLiberation;
 import application.event.EventPasser;
+import application.event.EventPayerPrison;
 import javafx.application.Application;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
@@ -20,6 +22,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
@@ -34,7 +37,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import modele.cartes.Carte;
+import modele.cartes.lesCartes.CarteLiberePrison;
+import modele.cases.Case;
 import modele.cases.Propriete;
+import modele.cases.lesCases.CaseCaisseCommunaute;
+import modele.cases.lesCases.CaseChance;
 import modele.exceptions.MonopolyException;
 import modele.joueur.Joueur;
 import modele.plateau.Plateau;
@@ -168,13 +176,8 @@ public class Monopoly extends Application {
 						boiteChoix.setContentText("Pion :");
 						Optional<String> selection = boiteChoix.showAndWait();
 						if (selection.isPresent()) {
-							try {
-								list.getItems().add(new Joueur( new Pion(selection.get())));
-							} catch (MonopolyException e) {
-								e.printStackTrace();
-							}
+							list.getItems().add(new Joueur( new Pion(selection.get())));
 						}
-						
 					
 					}
 				}
@@ -319,9 +322,11 @@ public class Monopoly extends Application {
 		box.getChildren().add(gererMaisons);
 				
 		Button payerPrison = new Button(ACTION_PAYER_PRISON);
+		payerPrison.setOnAction(new EventPayerPrison(this));
 		box.getChildren().add(payerPrison);
 
 		Button liberation = new Button(ACTION_LIBERATION);
+		liberation.setOnAction(new EventLiberation(this));
 		box.getChildren().add(liberation);
 		
 		panneauDroit.getChildren().add(box);
@@ -442,6 +447,32 @@ public class Monopoly extends Application {
 		for(Propriete prop : Plateau.getInstance().getJoueurPresent().getLesProprietes()) {
 			this.proprietesJoueurCourant.getItems().add(prop);
 		}
+	}
+	
+	
+	public void afficheCarte(Case pos) throws MonopolyException {
+		if (!(pos instanceof CaseCaisseCommunaute || pos instanceof CaseChance))
+			throw new MonopolyException("Pas de carte à afficher lors d'un arrêt sur la case " + pos.toString());
+		else {
+			if (pos instanceof CaseCaisseCommunaute) {
+				Carte carte = Plateau.getInstance().getLesCartesCommunaute().get(0);
+				if (carte instanceof CarteLiberePrison) {
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setHeaderText("");
+					alert.setContentText("Carte communauté :\n\n" + Plateau.getInstance().getLesCartesCommunaute().get(0).getNom());
+					ButtonType garder = new ButtonType("Garder", ButtonData.OK_DONE);
+					alert.getButtonTypes().add(garder);
+					getJoueurCourant().garderCarte(carte);
+					alert.showAndWait();
+				}
+				else {
+					this.DialogInfo("Carte communauté :\n\n" + Plateau.getInstance().getLesCartesCommunaute().get(0).getNom());
+				}
+			}
+			else if (pos instanceof CaseChance) {
+				this.DialogInfo("Carte chance :\n\n" + Plateau.getInstance().getLesCartesChance().get(0).getNom());
+			}
+		}	
 	}
 
 	

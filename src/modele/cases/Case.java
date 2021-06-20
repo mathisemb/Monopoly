@@ -2,7 +2,6 @@ package modele.cases;
 
 import modele.exceptions.MonopolyException;
 import modele.plateau.Plateau;
-import ui.UICase;
 
 /**
  * Classe abstraite servant de base à toutes les case du plateau de Monopoly
@@ -13,8 +12,6 @@ import ui.UICase;
 public abstract class Case {
 	private int numero;
 	private String nom;
-	private UICase ui;
-	
 	
 	/**
 	 * Le constructeur de la classe abstraite Case prend seulement le numero et le nom de la case pour la créer
@@ -46,14 +43,6 @@ public abstract class Case {
 	}
 	
 	/**
-	 * Retourne la partie interface associée à la case
-	 * @return le champs ui (la partie interface) de la case
-	 */
-	public UICase getUi() {
-		return ui;
-	}
-	
-	/**
 	 * Retourne la case venant après celle ci sur le plateau de Monopoly
 	 * @return la case suivante
 	 */
@@ -62,7 +51,7 @@ public abstract class Case {
 	}
 	
 	/**
-	 * Execute l'action que provoque l'arret sur cette case
+	 * Méthode abstraite qui execute l'action que provoque l'arret sur cette case
 	 * @throws MonopolyException si jamais l'action ne peut pas se dérouler comme prevue (suivant les conditions de la partie)
 	 */
 	public abstract void action() throws MonopolyException;
